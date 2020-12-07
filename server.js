@@ -9,11 +9,16 @@ app.use((req,res,next) => {
     next();
 })
 
+require('./controllers/quizzes.controller.server.js')(app)
+require('./controllers/question.controller.server.js')(app)
+require('./controllers/quiz-attempts.controller.server.js')(app)
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 app.get('/hello', (req, res) => {
     res.send('hello world');
 });
-
-require('./controllers/quizzes.controller.server')(app)
-require('./controllers/question.controller.server')(app)
 
 app.listen(3000);
